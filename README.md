@@ -1,4 +1,4 @@
-# Cyclistic-Data
+# Cyclistic Bike Share
 Data analysis with R programming language
 
  # About the company
