@@ -127,32 +127,38 @@ aggregate(all_trips_v3$trip_duration ~ all_trips_v3$member_casual, FUN = mean)
 aggregate(all_trips_v3$trip_duration ~ all_trips_v3$member_casual, FUN = median)
 aggregate(all_trips_v3$trip_duration ~ all_trips_v3$member_casual, FUN = max)
 aggregate(all_trips_v3$trip_duration ~ all_trips_v3$member_casual, FUN = min)
+
 ## Comparing Member and Casual users by day of the week
 aggregate(all_trips_v3$trip_duration ~ all_trips_v3$member_casual + all_trips_v3$day_of_week, FUN = mean)
 
 ## Fixing the order of the days of the week
 all_trips_v3$day_of_week <- ordered(all_trips_v3$day_of_week, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
 aggregate(all_trips_v3$trip_duration ~ all_trips_v3$member_casual + all_trips_v3$day_of_week, FUN = mean)
+
 ## Analyzing the ridership data by user type and the days of week
 all_trips_v4 <- all_trips_v3 %>% 
   mutate(day_of_week = wday(started_at, label = TRUE)) %>%  #creates weekday field using wday()
   group_by(member_casual, day_of_week) %>%  
   summarise(number_of_rides = n(),average_duration = mean(trip_duration)) %>% 		
   arrange(member_casual, day_of_week)		
+
 ## Analyzing the ridership data by user type and the month
 all_trips_v5 <- all_trips_v3 %>% 
   mutate(month = month(started_at, label = TRUE)) %>% 
   group_by(member_casual, month) %>%  
   summarise(number_of_rides = n(),average_duration = mean(trip_duration)) %>% 		
   arrange(member_casual, month)	
+
 ## Visualizing the number of rides by user type during weekdays
 all_trips_v4 %>% ggplot(aes(x = day_of_week, y = number_of_rides, fill = member_casual)) +
   geom_col(position = "dodge") + labs(title = "Ride by user type during weekdays", x = "Weekday", y= "Number of Rides", caption = "Data from 2020.05 to 2021.04") +
  scale_fill_manual(values = c("member"= "#5FD2AC","casual" = "#2C92D5"))
+
 ## Visualizing the number of rides by user type for each month
 all_trips_v5 %>% ggplot(aes(x = month, y = number_of_rides, fill = member_casual)) +
   geom_col(position = "dodge") + labs(title = "Ride by user type for each month", x = "Months", y= "Number of Rides", caption = "Data from 2020.05 to 2021.04") +
   scale_fill_manual(values = c("member"= "#5FD2AC","casual" = "#2C92D5"))
+
 ## Visualizing the average trip duration by user type
 ggplot(data=all_trips_v4,aes(x=day_of_week, y= average_duration)) + geom_point(aes(color=member_casual)) + scale_colour_manual(values = c("member"= "#5FD2AC","casual" = "#2C92D5"))
 
