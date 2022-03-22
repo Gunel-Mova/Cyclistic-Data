@@ -6,6 +6,7 @@ Data analysis with R programming language
 In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships.
 
 # PHASE 1: ASK
+
 ## Questions for the analysis
 
 1. How do annual members and casual riders use Cyclistic bikes differently?
