@@ -1,5 +1,5 @@
 # Cyclistic Bike Share
-Data analysis with R programming language
+Data analysis in R programming language
 
  # About the company
 
